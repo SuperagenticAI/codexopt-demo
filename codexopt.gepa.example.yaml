@@ -1,0 +1,30 @@
+version: 1
+
+# Demo targets in this repository
+targets:
+  agents_files:
+    - AGENTS.md
+  skills_globs:
+    - ".codex/skills/**/SKILL.md"
+  exclude_globs:
+    - ".git/**"
+    - ".venv/**"
+    - ".uv-cache/**"
+    - ".codexopt/**"
+
+output:
+  root_dir: ".codexopt"
+
+optimization:
+  # Switch to GEPA
+  engine: "gepa"
+
+  # Minimum score improvement before candidate is applied
+  min_apply_delta: 0.01
+
+  # GEPA budget knob in CodexOpt (higher = more search/evals)
+  max_metric_calls: 120
+
+  # Reflection model required by CodexOpt GEPA engine path
+  # Replace with your provider/model identifier.
+  reflection_model: "your-provider/your-reflection-model"
