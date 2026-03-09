@@ -11,6 +11,7 @@ Demo repository for showcasing CodexOpt on intentionally messy instruction asset
   - duplicated lines
 - `tasks.md` with 5 evaluation tasks
 - Tiny Python package under `src/codexopt_demo`
+- GEPA local/cloud setup guide: `docs/gepa-local-and-cloud.md`
 
 ## Quick Start (uv)
 
@@ -78,3 +79,10 @@ codexopt optimize skills \
 
 Current CodexOpt exposes GEPA tuning via `max_metric_calls` and `reflection_model`.
 A direct `iterations` field is not exposed yet; use `max_metric_calls` as the primary search-budget control.
+
+## GEPA Run Guide
+
+For step-by-step local and cloud GEPA setup (including low-budget runs), see:
+
+- `docs/gepa-local-and-cloud.md`
+
