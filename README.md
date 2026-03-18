@@ -59,11 +59,11 @@ Example:
 
 ```bash
 cp codexopt.gepa.example.yaml codexopt.yaml
-codexopt benchmark --config codexopt.yaml
-codexopt optimize agents --config codexopt.yaml
-codexopt optimize skills --config codexopt.yaml
+codexopt --config codexopt.yaml benchmark
+codexopt --config codexopt.yaml optimize agents
+codexopt --config codexopt.yaml optimize skills
 codexopt apply --kind agents --dry-run
-codexopt report --output codexopt-report.md
+codexopt --config codexopt.yaml report --output codexopt-report.md
 ```
 
 Command reference used in the demo:
@@ -74,12 +74,12 @@ export GEMINI_API_KEY="YOUR_REAL_KEY"
 export GOOGLE_API_KEY="$GEMINI_API_KEY"
 rm -rf .codexopt codexopt-report.md
 ls
-codexopt benchmark --config codexopt.gepa.example.yaml
-codexopt optimize agents --config codexopt.gepa.example.yaml --engine heuristic --file AGENTS.md
-codexopt optimize skills --config codexopt.gepa.example.yaml --engine heuristic --glob ".codex/skills/**/SKILL.md"
+codexopt --config codexopt.gepa.example.yaml benchmark
+codexopt --config codexopt.gepa.example.yaml optimize agents --engine heuristic --file AGENTS.md
+codexopt --config codexopt.gepa.example.yaml optimize skills --engine heuristic --glob ".codex/skills/**/SKILL.md"
 codexopt apply --kind agents --dry-run
 codexopt apply --kind skills --dry-run
-codexopt report --config codexopt.gepa.example.yaml --output codexopt-report.md
+codexopt --config codexopt.gepa.example.yaml report --output codexopt-report.md
 sed -n '1,120p' codexopt-report.md
 codexopt --config codexopt.gepa.example.yaml optimize agents \
   --engine gepa \
@@ -99,7 +99,7 @@ To benchmark against repo tasks and issue themes, copy the demo config first:
 
 ```bash
 cp codexopt.gepa.example.yaml codexopt.yaml
-codexopt benchmark --config codexopt.yaml
+codexopt --config codexopt.yaml benchmark
 ```
 
 That config enables:
@@ -146,8 +146,8 @@ optimization:
 ### 3) Run optimization with GEPA
 
 ```bash
-codexopt optimize agents --config codexopt.yaml
-codexopt optimize skills --config codexopt.yaml
+codexopt --config codexopt.yaml optimize agents
+codexopt --config codexopt.yaml optimize skills
 ```
 
 ### 4) Override from CLI (optional)
@@ -180,12 +180,12 @@ export GEMINI_API_KEY="YOUR_REAL_KEY"
 export GOOGLE_API_KEY="$GEMINI_API_KEY"
 rm -rf .codexopt codexopt-report.md
 ls
-codexopt benchmark --config codexopt.gepa.example.yaml
-codexopt optimize agents --config codexopt.gepa.example.yaml --engine heuristic --file AGENTS.md
-codexopt optimize skills --config codexopt.gepa.example.yaml --engine heuristic --glob ".codex/skills/**/SKILL.md"
+codexopt --config codexopt.gepa.example.yaml benchmark
+codexopt --config codexopt.gepa.example.yaml optimize agents --engine heuristic --file AGENTS.md
+codexopt --config codexopt.gepa.example.yaml optimize skills --engine heuristic --glob ".codex/skills/**/SKILL.md"
 codexopt apply --kind agents --dry-run
 codexopt apply --kind skills --dry-run
-codexopt report --config codexopt.gepa.example.yaml --output codexopt-report.md
+codexopt --config codexopt.gepa.example.yaml report --output codexopt-report.md
 sed -n '1,120p' codexopt-report.md
 codexopt --config codexopt.gepa.example.yaml optimize agents \
   --engine gepa \
