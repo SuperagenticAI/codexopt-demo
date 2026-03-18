@@ -2,6 +2,12 @@
 
 Demo repository for showcasing CodexOpt on intentionally messy instruction assets.
 
+## Main Project
+
+This demo is the companion repository for the main CodexOpt project:
+
+- CodexOpt: https://github.com/SuperagenticAI/CodexOpt
+
 ## Contents
 
 - `AGENTS.md` with duplicate and conflicting guidance
@@ -141,6 +147,34 @@ optimization:
   engine: "gepa"
   max_metric_calls: 120
   reflection_model: "your-provider/your-reflection-model"
+```
+
+GEPA in CodexOpt is model-agnostic. You can use OpenAI, Gemini, local models,
+or other GEPA/LiteLLM-compatible providers for reflection and candidate feedback.
+
+OpenAI example:
+
+```bash
+export OPENAI_API_KEY="YOUR_KEY"
+```
+
+```yaml
+optimization:
+  engine: "gepa"
+  reflection_model: "openai/gpt-5-mini"
+```
+
+Gemini example:
+
+```bash
+export GEMINI_API_KEY="YOUR_KEY"
+export GOOGLE_API_KEY="$GEMINI_API_KEY"
+```
+
+```yaml
+optimization:
+  engine: "gepa"
+  reflection_model: "gemini/gemini-2.5-pro"
 ```
 
 ### 3) Run optimization with GEPA

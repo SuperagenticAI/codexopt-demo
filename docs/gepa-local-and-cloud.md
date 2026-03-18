@@ -7,6 +7,10 @@ This guide shows how to run CodexOpt with GEPA in a small-budget setup using eit
 
 It is written to be copy-paste friendly for any machine.
 
+CodexOpt's GEPA path is model-agnostic. You can use OpenAI, Gemini, local
+models, or other GEPA / LiteLLM-compatible providers for reflection and
+candidate feedback.
+
 ## Prerequisites
 
 - Python 3.10+
@@ -134,7 +138,53 @@ uv run codexopt --config codexopt.gemini.yaml optimize agents
 uv run codexopt --config codexopt.gemini.yaml report --output report-gemini.md
 ```
 
-## 5) Budget Control Tips
+## 5) Cloud Models (OpenAI)
+
+### 5.1 Set API key
+
+```bash
+export OPENAI_API_KEY="YOUR_KEY"
+```
+
+### 5.2 Create OpenAI GEPA config
+
+Create `codexopt.openai.yaml`:
+
+```yaml
+version: 1
+targets:
+  agents_files:
+    - AGENTS.md
+  skills_globs:
+    - ".codex/skills/**/SKILL.md"
+  exclude_globs:
+    - ".git/**"
+    - ".venv/**"
+    - ".uv-cache/**"
+    - ".codexopt/**"
+output:
+  root_dir: ".codexopt"
+evidence:
+  task_files:
+    - tasks.md
+  issue_files:
+    - issues.md
+optimization:
+  engine: "gepa"
+  min_apply_delta: 0.01
+  max_metric_calls: 20
+  reflection_model: "openai/gpt-5-mini"
+```
+
+### 5.3 Run low-budget OpenAI optimization
+
+```bash
+uv run codexopt --config codexopt.openai.yaml optimize skills
+uv run codexopt --config codexopt.openai.yaml optimize agents
+uv run codexopt --config codexopt.openai.yaml report --output report-openai.md
+```
+
+## 6) Budget Control Tips
 
 - Start with `max_metric_calls: 20`.
 - Optimize one target at a time (`skills`, then `agents`).
@@ -147,7 +197,7 @@ uv run codexopt apply --kind skills --dry-run
 - Increase budget gradually (`20 -> 40 -> 80`) only if deltas are promising.
 - Check the optimize artifact or report for `GEPA fallback count` so you know whether a run truly used GEPA or dropped to heuristics.
 
-## 6) About "iterations"
+## 7) About "iterations"
 
 Current CodexOpt GEPA integration exposes tuning primarily via:
 
@@ -156,12 +206,13 @@ Current CodexOpt GEPA integration exposes tuning primarily via:
 
 A direct `iterations` field is not exposed yet.
 
-## 7) Suggested comparison flow for a tiny experiment
+## 8) Suggested comparison flow for a tiny experiment
 
 1. Baseline: `scan` + `benchmark`
 2. Local run: GEPA with Ollama (`max_metric_calls: 20`)
 3. Cloud run: GEPA with Gemini (`max_metric_calls: 20`)
-4. Compare:
+4. Cloud run: GEPA with OpenAI (`max_metric_calls: 20`)
+5. Compare:
    - files improved
    - average delta
    - benchmark feedback themes
