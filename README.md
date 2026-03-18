@@ -66,6 +66,35 @@ codexopt apply --kind agents --dry-run
 codexopt report --output codexopt-report.md
 ```
 
+Command reference used in the demo:
+
+```bash
+cd /path/to/codexopt-demo
+export GEMINI_API_KEY="YOUR_REAL_KEY"
+export GOOGLE_API_KEY="$GEMINI_API_KEY"
+rm -rf .codexopt codexopt-report.md
+ls
+codexopt benchmark --config codexopt.gepa.example.yaml
+codexopt optimize agents --config codexopt.gepa.example.yaml --engine heuristic --file AGENTS.md
+codexopt optimize skills --config codexopt.gepa.example.yaml --engine heuristic --glob ".codex/skills/**/SKILL.md"
+codexopt apply --kind agents --dry-run
+codexopt apply --kind skills --dry-run
+codexopt report --config codexopt.gepa.example.yaml --output codexopt-report.md
+sed -n '1,120p' codexopt-report.md
+codexopt --config codexopt.gepa.example.yaml optimize agents \
+  --engine gepa \
+  --reflection-model gemini/gemini-2.5-pro \
+  --max-metric-calls 2 \
+  --file AGENTS.md
+```
+
+- `benchmark`: baseline score plus evidence-aware feedback
+- `optimize agents`: optimize `AGENTS.md`
+- `optimize skills`: optimize demo skill files
+- `apply --dry-run`: preview changes without writing files
+- `report`: generate a markdown summary from the latest runs
+- `optimize ... --engine gepa`: optional low-budget GEPA example with Gemini 2.5 Pro
+
 To benchmark against repo tasks and issue themes, copy the demo config first:
 
 ```bash
@@ -142,3 +171,25 @@ If GEPA is unavailable or the requested model path fails, CodexOpt records that 
 For step-by-step local and cloud GEPA setup (including low-budget runs), see:
 
 - `docs/gepa-local-and-cloud.md`
+
+## Try It Yourself
+
+```bash
+cd /path/to/codexopt-demo
+export GEMINI_API_KEY="YOUR_REAL_KEY"
+export GOOGLE_API_KEY="$GEMINI_API_KEY"
+rm -rf .codexopt codexopt-report.md
+ls
+codexopt benchmark --config codexopt.gepa.example.yaml
+codexopt optimize agents --config codexopt.gepa.example.yaml --engine heuristic --file AGENTS.md
+codexopt optimize skills --config codexopt.gepa.example.yaml --engine heuristic --glob ".codex/skills/**/SKILL.md"
+codexopt apply --kind agents --dry-run
+codexopt apply --kind skills --dry-run
+codexopt report --config codexopt.gepa.example.yaml --output codexopt-report.md
+sed -n '1,120p' codexopt-report.md
+codexopt --config codexopt.gepa.example.yaml optimize agents \
+  --engine gepa \
+  --reflection-model gemini/gemini-2.5-pro \
+  --max-metric-calls 2 \
+  --file AGENTS.md
+```
