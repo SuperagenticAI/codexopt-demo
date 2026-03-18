@@ -14,6 +14,11 @@ targets:
 
 output:
   root_dir: ".codexopt"
+evidence:
+  task_files:
+    - tasks.md
+  issue_files:
+    - issues.md
 
 optimization:
   # Switch to GEPA

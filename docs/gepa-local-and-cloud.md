@@ -65,6 +65,11 @@ targets:
     - ".codexopt/**"
 output:
   root_dir: ".codexopt"
+evidence:
+  task_files:
+    - tasks.md
+  issue_files:
+    - issues.md
 optimization:
   engine: "gepa"
   min_apply_delta: 0.01
@@ -107,6 +112,11 @@ targets:
     - ".codexopt/**"
 output:
   root_dir: ".codexopt"
+evidence:
+  task_files:
+    - tasks.md
+  issue_files:
+    - issues.md
 optimization:
   engine: "gepa"
   min_apply_delta: 0.01
@@ -135,6 +145,7 @@ uv run codexopt apply --kind skills --dry-run
 ```
 
 - Increase budget gradually (`20 -> 40 -> 80`) only if deltas are promising.
+- Check the optimize artifact or report for `GEPA fallback count` so you know whether a run truly used GEPA or dropped to heuristics.
 
 ## 6) About "iterations"
 
@@ -153,6 +164,7 @@ A direct `iterations` field is not exposed yet.
 4. Compare:
    - files improved
    - average delta
+   - benchmark feedback themes
    - quality vs cost tradeoff
 
 Use `.codexopt/runs/*` artifacts and generated reports to document your results.
